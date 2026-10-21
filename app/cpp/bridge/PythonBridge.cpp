@@ -21,10 +21,10 @@ std::vector<double> parseNumericInput(const std::string& input)
         ++lineNumber;
 
         // Accept Windows-style line endings and ignore empty rows.
-        if (!line.empty() && line.back() == '\\r')
+        if (!line.empty() && line.back() == '\r')
             line.pop_back();
 
-        if (line.find_first_not_of(" \\t") == std::string::npos)
+        if (line.find_first_not_of(" \t") == std::string::npos)
             continue;
 
         std::size_t consumed = 0;
@@ -38,7 +38,7 @@ std::vector<double> parseNumericInput(const std::string& input)
             );
         }
 
-        if (line.find_first_not_of(" \\t", consumed) != std::string::npos) {
+        if (line.find_first_not_of(" \t", consumed) != std::string::npos) {
             throw std::invalid_argument(
                 "Unexpected text after the number on row " +
                 std::to_string(lineNumber) + "."
