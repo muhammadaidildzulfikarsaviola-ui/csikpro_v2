@@ -4,9 +4,15 @@ project(Sikpro LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
+set(Qt6_DIR "D:/Code/Qt/6.12.0/msvc2022_64/lib/cmake/Qt6")
 
 find_package(Qt6 6.12 REQUIRED COMPONENTS Widgets)
 find_package(Python3 3.11 EXACT REQUIRED COMPONENTS Interpreter Development)
+
+set(pybind11_DIR
+    "D:/Code/Sikpro-v2-with-c/.venv/Lib/site-packages/pybind11/share/cmake/pybind11"
+)
+
 find_package(pybind11 CONFIG REQUIRED)
 
 qt_add_executable(Sikpro
@@ -28,7 +34,7 @@ endif()
 # used literal braces instead of CMake variable expansion.
 file(TO_CMAKE_PATH "${CMAKE_SOURCE_DIR}/engine/python" SIKPRO_ENGINE_DIR)
 target_compile_definitions(Sikpro PRIVATE
-    SIKPRO_ENGINE_DIR="\"${SIKPRO_ENGINE_DIR}\""
+    "SIKPRO_ENGINE_DIR=\"${SIKPRO_ENGINE_DIR}\""
 )
 
 target_compile_definitions(Sikpro PRIVATE QT_NO_KEYWORDS)
