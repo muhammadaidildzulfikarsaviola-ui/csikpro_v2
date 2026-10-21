@@ -19,6 +19,10 @@ qt_add_executable(Sikpro
 
 target_include_directories(Sikpro PRIVATE app/cpp)
 target_link_libraries(Sikpro PRIVATE Qt6::Widgets pybind11::embed)
+if(MSVC)
+    # Preserve UTF-8 source literals and the configured engine path on Windows.
+    target_compile_options(Sikpro PRIVATE /utf-8)
+endif()
 
 # Resolve the Python engine directory at configure time. The previous version
 # used literal braces instead of CMake variable expansion.
