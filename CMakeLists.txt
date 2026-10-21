@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.25)
 project(Sikpro LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -20,10 +20,11 @@ qt_add_executable(Sikpro
 target_include_directories(Sikpro PRIVATE app/cpp)
 target_link_libraries(Sikpro PRIVATE Qt6::Widgets pybind11::embed)
 
-file(TO_CMAKE_PATH "{CMAKE_SOURCE_DIR}/engine/python" SIKPRO_ENGINE_DIR)
+# Resolve the Python engine directory at configure time. The previous version
+# used literal braces instead of CMake variable expansion.
+file(TO_CMAKE_PATH "${CMAKE_SOURCE_DIR}/engine/python" SIKPRO_ENGINE_DIR)
 target_compile_definitions(Sikpro PRIVATE
-    SIKPRO_ENGINE_DIR="{SIKPRO_ENGINE_DIR}"
+    SIKPRO_ENGINE_DIR="\"${SIKPRO_ENGINE_DIR}\""
 )
 
 target_compile_definitions(Sikpro PRIVATE QT_NO_KEYWORDS)
-
